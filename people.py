@@ -4,7 +4,7 @@ class People:
         self.age = age
 
     def run(self, arg):
-        speed = arg * 20
+        speed = arg * 40
         return speed
 
 
