@@ -1,29 +1,52 @@
 import json
+import os
 # import pandas as pd
 # import matplotlib.pyplot as plt
 # import numpy as np
 # from collections import Counter
 
-l = []
-with open('D:/TEMP/_____НИГДе/waze_19_12/2019_12_19_00_00_WAZE_JSON.json') as json_file:
-    annotations = json.load(json_file)
-    annotations = list(annotations.values())  # don't need the dict keys
+dirname = 'D:/TEMP/_____НИГДе/waze_19_12/'
+f = open("D:/TEMP/_____НИГДе/waze_19_12/project/2.txt", "w+")
 
-    # The VIA tool saves images in the JSON even if they don't have any
-    # annotations. Skip unannotated images.
-    annotations = [a for a in annotations if a['alerts']]
+for filename in os.listdir(dirname):
+    f_type = filename[-4:]
+    if f_type == 'json':
+        date = filename[:10]
+        time = filename[11:16]
+        # print('filename: {}, date: {}, time {}'.format(filename, date, time))
+
+# l = []
+        with open('D:/TEMP/_____НИГДе/waze_19_12/'+filename) as json_file:
+            annotations = json.load(json_file)
+            annotations = annotations['alerts']
 
     # Add images
-    for a in annotations:
+            for a in annotations:
         # Get the x, y coordinaets of points of the polygons that make up
         # the outline of each object instance. There are stores in the
         # shape_attributes (see json format above)
-        type_a = [r['type'] for r in a['alerts'].values()]
-        location = [s['location'] for s in a['alerts'].values()]
+#        country = a['country']
+#        nThumbsUp = a['nThumbsUp']
+#        magvar = a['magvar']
+#        reportRating = a['reportRating']
+#        confidence = a['confidence']
+#        reliability = a['reliability']
+                type_a = a['type']
+                subtype = a['subtype']
+                location = a['location']
         # class_ids = [int(n['class']) for n in objects]
         # l = l + class_ids
 
-        print (type_a)
+        # print ('country: {} nThumbsUp: {} magvar: {} reportRating: {} confidence: {} '
+        #        'reliability: {} type: {} subtype {} location {}'.format(country, nThumbsUp, magvar, reportRating,
+        #                                                                 confidence, reliability, type_a, subtype,
+        #                                                                 location))
+
+        # print ('type: {} subtype {} X {} Y {}'.format(type_a, subtype, location['x'], location['y']))
+
+                # print('{}; {}; {}; {}; {}; {}'.format(type_a, subtype, location['x'], location['y'], date, time))
+                f.write('{}; {}; {}; {}; {}; {} \r\n'.format(type_a, subtype, location['x'], location['y'], date, time))
+f.close()
     # print (Counter(l))
 
     # size, scale = 1000, 10
