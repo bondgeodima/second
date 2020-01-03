@@ -47,7 +47,8 @@ for filename in os.listdir(dirname):
                 # print('{}; {}; {}; {}; {}; {}'.format(type_a, subtype, location['x'], location['y'], date, time))
                 f.write('{}; {}; {}; {}; {}; {}; {} \r\n'.format(uuid, type_a, subtype, location['x'], location['y'], date, time))
 f.close()
-    # print (Counter(l))
+
+# print (Counter(l))
 
     # size, scale = 1000, 10
     # commutes = pd.DataFrame({'col':l})
