@@ -15,6 +15,7 @@ for filename in os.listdir(dirname):
         time = filename[11:16]
         # print('filename: {}, date: {}, time {}'.format(filename, date, time))
 
+
         with open('D:/TEMP/_____НИГДе/waze_19_12/'+filename) as json_file:
             annotations = json.load(json_file)
             annotations = annotations['alerts']
@@ -49,12 +50,11 @@ for filename in os.listdir(dirname):
 f.close()
 
 # print (Counter(l))
-
-    # size, scale = 1000, 10
-    # commutes = pd.DataFrame({'col':l})
-    # commutes.plot.hist(grid=True, bins=20, rwidth=0.9,
-    #                    color='#607c8e')
-    # plt.title('Commute Times for 1,000 Commuters')
-    # plt.xlabel('Counts')
-    # plt.ylabel('Commute Time')
-    # plt.grid(axis='y', alpha=0.75)
+# size, scale = 1000, 10
+# commutes = pd.DataFrame({'col':l})
+# commutes.plot.hist(grid=True, bins=20, rwidth=0.9,
+#                    color='#607c8e')
+# plt.title('Commute Times for 1,000 Commuters')
+# plt.xlabel('Counts')
+# plt.ylabel('Commute Time')
+# plt.grid(axis='y', alpha=0.75)
