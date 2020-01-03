@@ -6,7 +6,7 @@ import os
 # from collections import Counter
 
 dirname = 'D:/TEMP/_____НИГДе/waze_19_12/'
-f = open("D:/TEMP/_____НИГДе/waze_19_12/project/2.txt", "w+")
+f = open("D:/TEMP/_____НИГДе/waze_19_12/project/3.txt", "w+")
 
 for filename in os.listdir(dirname):
     f_type = filename[-4:]
@@ -34,6 +34,7 @@ for filename in os.listdir(dirname):
                 type_a = a['type']
                 subtype = a['subtype']
                 location = a['location']
+                uuid = a['uuid']
         # class_ids = [int(n['class']) for n in objects]
         # l = l + class_ids
 
@@ -45,7 +46,7 @@ for filename in os.listdir(dirname):
         # print ('type: {} subtype {} X {} Y {}'.format(type_a, subtype, location['x'], location['y']))
 
                 # print('{}; {}; {}; {}; {}; {}'.format(type_a, subtype, location['x'], location['y'], date, time))
-                f.write('{}; {}; {}; {}; {}; {} \r\n'.format(type_a, subtype, location['x'], location['y'], date, time))
+                f.write('{}; {}; {}; {}; {}; {}; {} \r\n'.format(uuid, type_a, subtype, location['x'], location['y'], date, time))
 f.close()
     # print (Counter(l))
 
