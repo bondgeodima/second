@@ -3,7 +3,6 @@ import os
 
 dirname = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/'
 
-
 for filename in os.listdir(dirname):
     f_type = filename[-3:]
     f_file = filename[:-4]
