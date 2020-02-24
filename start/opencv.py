@@ -18,7 +18,7 @@ for filename in os.listdir(dirname):
             os.makedirs(directory)
         while success:
             # cv2.imwrite("D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/_out_VID_20200125_154626/%05d.jpg" % count, image)     # save frame as JPEG file
-            cv2.imwrite(out_name + f_file + "%05d.jpg" % count, image)  # save frame as JPEG file
+            cv2.imwrite(out_name + f_file + '_' + "%05d.jpg" % count, image)  # save frame as JPEG file
             success,image = vidcap.read()
             # print('Read a new frame: ', success)
             count += 1
