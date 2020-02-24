@@ -32,8 +32,8 @@ from samples.coco import coco
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 
 # detect signs by type
-# COCO_MODEL_PATH = os.path.join(ROOT_DIR, "../mask_rcnn_road_signs_0030_all_data_all_layers.h5")
-COCO_MODEL_PATH = os.path.join(ROOT_DIR, "../mask_rcnn_road_signs_0020_SN_data_4_layers_0_001lr.h5")
+COCO_MODEL_PATH = os.path.join(ROOT_DIR, "../mask_rcnn_road_signs_0030_all_data_all_layers.h5")
+# COCO_MODEL_PATH = os.path.join(ROOT_DIR, "../mask_rcnn_road_signs_0020_SN_data_4_layers_0_001lr.h5")
 
 # Download COCO trained weights from Releases if needed
 if not os.path.exists(COCO_MODEL_PATH):
@@ -61,7 +61,11 @@ class_names = ['BG', 'road_sign']
 
 def random_colors(N):
     np.random.seed(1)
-    colors = [tuple(255 * np.random.rand(3)) for _ in range(N)]
+    # c = tuple(255 * np.random.rand(3))
+    # cc = (85, 22, 239)
+    # colors = [tuple(255 * np.random.rand(3)) for _ in range(N)]
+    colors = [(85, 22, 239) for _ in range(N)]
+    # colors = [85, 22, 239]
     return colors
 
 def apply_mask(image, mask, color, alpha=0.5):
@@ -104,7 +108,7 @@ def display_instances(image, boxes, masks, ids, names, scores):
 
     return image
 
-dirname = 'D:/TEMP/_deeplearning/road_signs/_video_17_02_2020/_out_VID_20200130_102654/'
+dirname = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/_out_VID_20200125_153010/'
 
 for filename in os.listdir(dirname):
 
