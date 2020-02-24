@@ -9,8 +9,7 @@ for filename in os.listdir(dirname):
     if f_type == 'jpg':
         out_name = dirname + filename
         img = cv2.imread(dirname + filename)
-        (h, w) = img.shape[:2
-                 ]
+        (h, w) = img.shape[:2]
         # calculate the center of the image
         center = (w / 2, h / 2)
 
