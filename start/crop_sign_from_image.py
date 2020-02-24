@@ -12,18 +12,28 @@ with open('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3_34.json') as
     # annotations. Skip unannotated images.
     annotations = [a for a in annotations if a['regions']]
 
-    """
+
     # Add images
     for a in annotations:
+        file_name = a['filename']
+        print (file_name)
+
         # Get the x, y coordinaets of points of the polygons that make up
         # the outline of each object instance. There are stores in the
         # shape_attributes (see json format above)
-        polygons = [r['shape_attributes'] for r in a['regions'].values()]
-        objects = [s['region_attributes'] for s in a['regions'].values()]
-        class_ids = [int(n['class']) for n in objects]
+        # polygons = [r['shape_attributes'] for r in a['regions'].values()]
+        # objects = [s['region_attributes'] for s in a['regions'].values()]
+        # class_ids = [int(n['class']) for n in objects]
         all_points_x = [r['shape_attributes']['all_points_x'] for r in a['regions'].values()]
         all_points_y = [r['shape_attributes']['all_points_y'] for r in a['regions'].values()]
+        # img = cv2.imread(file_name)
+        coord = []
+        i = 0
+        for x in all_points_x:
+            pts = []
+            pts.append(all_points_x[i])
+            pts.append(all_points_y[i])
+            coord = coord + pts
+            i = i + 1
+        print (pts)
         # l = l + class_ids
-
-        print (filename)
-    """
