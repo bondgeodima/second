@@ -1,7 +1,7 @@
 import io
 import os
 
-dirname = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/'
+dirname = 'D:/TEMP/_deeplearning/road_signs/_video_17_02_2020/'
 
 for filename in os.listdir(dirname):
     f_type = filename[-3:]
@@ -32,7 +32,7 @@ for filename in os.listdir(dirname):
             y = str(b[2]) + '.' + str(b[3])
             angle = b[4]
             # p = 'D:\\TEMP\\_deeplearning\\road_signs\\__video\\out2\\'
-            p = 'D:\\TEMP\\_deeplearning\\road_signs\\_video_25_01_2020\\_out_' + f_file + '\\'
+            p = 'D:\\TEMP\\_deeplearning\\road_signs\\_video_17_02_2020\\_out_' + f_file + '\\'
             file = str(с).zfill(5)
             l = str(a[i]) + '; ' + x + ';' + y + ';' + angle + '; ' + p + file + '.jpg' + '; ' + file + '\n'
             print (a[i], x, y, angle, p + file + '.jpg', file)
