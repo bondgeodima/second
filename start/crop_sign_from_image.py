@@ -26,14 +26,43 @@ with open('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3_34.json') as
         # class_ids = [int(n['class']) for n in objects]
         all_points_x = [r['shape_attributes']['all_points_x'] for r in a['regions'].values()]
         all_points_y = [r['shape_attributes']['all_points_y'] for r in a['regions'].values()]
-        # img = cv2.imread(file_name)
-        coord = []
-        i = 0
-        for x in all_points_x:
+        # print (all_points_x, all_points_y)
+        img = cv2.imread(file_name)
+
+        polygons = []
+        for i in range(len(all_points_x)):
+            polygon =[]
             pts = []
-            pts.append(all_points_x[i])
-            pts.append(all_points_y[i])
-            coord = coord + pts
-            i = i + 1
-        print (pts)
-        # l = l + class_ids
+            for j in range(len(all_points_x[i])):
+                pt = []
+                pt.append(all_points_x[i][j])
+                pt.append(all_points_y[i][j])
+                polygon.append(pt)
+                pts.append(pt)
+
+            rect = cv2.boundingRect(pts)
+            x, y, w, h = rect
+            croped = img[y:y + h, x:x + w].copy()
+
+            pts = pts - pts.min(axis=0)
+
+            mask = np.zeros(croped.shape[:2], np.uint8)
+            cv2.drawContours(mask, [pts], -1, (255, 255, 255), -1, cv2.LINE_AA)
+
+            ## (3) do bit-op
+            dst = cv2.bitwise_and(croped, croped, mask=mask)
+
+            ## (4) add the white background
+            bg = np.ones_like(croped, np.uint8) * 255
+            cv2.bitwise_not(bg, bg, mask=mask)
+            dst2 = bg + dst
+
+            cv2.imwrite("croped.png", croped)
+            cv2.imwrite("mask.png", mask)
+            cv2.imwrite("dst.png", dst)
+            cv2.imwrite("dst2.png", dst2)
+
+            polygons.append(polygon)
+        print (polygons)
+
+
