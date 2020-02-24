@@ -32,7 +32,7 @@ from samples.coco import coco
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 
 # detect signs by type
-COCO_MODEL_PATH = os.path.join(ROOT_DIR, "../mask_rcnn_road_signs_0030_all.h5")
+COCO_MODEL_PATH = os.path.join(ROOT_DIR, "../mask_rcnn_road_signs_0030_all_data_all_layers.h5")
 # Download COCO trained weights from Releases if needed
 if not os.path.exists(COCO_MODEL_PATH):
     utils.download_trained_weights(COCO_MODEL_PATH)
@@ -102,7 +102,7 @@ def display_instances(image, boxes, masks, ids, names, scores):
 
     return image
 
-dirname = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/'
+dirname = 'D:/TEMP/_deeplearning/road_signs/_video_17_02_2020/'
 
 f_json = {}
 
