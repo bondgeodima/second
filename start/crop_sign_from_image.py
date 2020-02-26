@@ -7,10 +7,10 @@ import PIL.ExifTags
 
 l = []
 
-# dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
-dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
-# file_json = '3_34.json'
-file_json = 'via_region_data.json'
+dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
+# dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
+file_json = '3_34.json'
+# file_json = 'via_region_data.json'
 
 with open(dir_name + file_json) as json_file:
     annotations = json.load(json_file)
@@ -36,10 +36,13 @@ with open(dir_name + file_json) as json_file:
         all_points_y = [r['shape_attributes']['all_points_y'] for r in a['regions'].values()]
         # print (all_points_x, all_points_y)
         img = cv2.imread(dir_name + file_name)
+        height, width, channels = img.shape
 
         imge = PIL.Image.open(dir_name + file_name)
 
         img_exif = imge._getexif()
+
+        Orientation = int()
 
         if img_exif:
             exif = {
@@ -49,6 +52,8 @@ with open(dir_name + file_json) as json_file:
             }
 
             Orientation = exif['Orientation']
+            ExifImageWidth = exif['ExifImageWidth']
+            ExifImageHeight = exif['ExifImageHeight']
 
         polygons = []
         for i in range(len(all_points_x)):
@@ -56,12 +61,25 @@ with open(dir_name + file_json) as json_file:
             # points = []
             for j in range(len(all_points_x[i])):
                 pt = []
-                pt.append(int(all_points_y[i][j]))
-                pt.append(int(all_points_x[i][j]))
+                if Orientation == 0:
+                    pt.append(int(all_points_y[i][j]))
+                    pt.append(int(all_points_x[i][j]))
+                if Orientation == 6:
+                    # img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+                    pt.append(int(all_points_x[i][j]))
+                    pt.append(int(width - all_points_y[i][j]))
                 polygon.append(pt)
+                # print(polygon)
                 # points.append(pt)
 
             pts = np.array(polygon)
+
+            # cv2.polylines(img, [pts], True, (0, 255, 0), thickness=3)
+
+            # cv2.imshow('image', img)
+            # cv2.waitKey(0)
+            # cv2.destroyAllWindows()
+
             rect = cv2.boundingRect(pts)
             y, x, w, h = rect
             croped = img[y:y+w, x:x+h].copy()
