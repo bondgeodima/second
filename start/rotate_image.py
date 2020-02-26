@@ -1,8 +1,8 @@
 import cv2
 import os
 
-dirname = 'D:/TEMP/_deeplearning/road_signs/_video_17_02_2020/_out_VID_20200130_092933/'
-
+dirname = 'D:/TEMP/_deeplearning/road_signs/_video_17_02_2020/_out_VID_20200130_102028/'
+# _out_VID_20200130_102028
 for filename in os.listdir(dirname):
     f_type = filename[-3:]
     f_file = filename[:-4]
