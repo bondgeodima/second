@@ -69,16 +69,8 @@ with open(dir_name + file_json) as json_file:
                     pt.append(int(all_points_x[i][j]))
                     pt.append(int(width - all_points_y[i][j]))
                 polygon.append(pt)
-                # print(polygon)
-                # points.append(pt)
 
             pts = np.array(polygon)
-
-            # cv2.polylines(img, [pts], True, (0, 255, 0), thickness=3)
-
-            # cv2.imshow('image', img)
-            # cv2.waitKey(0)
-            # cv2.destroyAllWindows()
 
             rect = cv2.boundingRect(pts)
             y, x, w, h = rect
