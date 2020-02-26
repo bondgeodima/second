@@ -66,6 +66,9 @@ with open(dir_name + file_json) as json_file:
                     # img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
                     pt.append(int(all_points_x[i][j]))
                     pt.append(int(width - all_points_y[i][j]))
+                if Orientation == 1:
+                    pt.append(int(all_points_y[i][j]))
+                    pt.append(int(all_points_x[i][j]))
                 polygon.append(pt)
 
             pts = np.array(polygon)
@@ -87,7 +90,7 @@ with open(dir_name + file_json) as json_file:
             cv2.bitwise_not(bg, bg, mask=mask)
             dst2 = bg + dst
 
-            dim = (64, 64)
+            dim = (128, 128)
             croped = cv2.resize(croped, dim, interpolation=cv2.INTER_AREA)
 
             cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_'
@@ -97,6 +100,6 @@ with open(dir_name + file_json) as json_file:
             # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/' + 'dst2.png', dst2)
 
             polygons.append(polygon)
-        print (polygons)
+        # print (polygons)
 
 
