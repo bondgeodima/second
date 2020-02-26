@@ -52,8 +52,6 @@ with open(dir_name + file_json) as json_file:
             }
 
             Orientation = exif['Orientation']
-            ExifImageWidth = exif['ExifImageWidth']
-            ExifImageHeight = exif['ExifImageHeight']
 
         polygons = []
         for i in range(len(all_points_x)):
