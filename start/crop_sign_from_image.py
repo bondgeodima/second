@@ -1,10 +1,18 @@
 import os
 import json
 import cv2
+import numpy as np
+import PIL.Image
+import PIL.ExifTags
 
 l = []
 
-with open('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3_34.json') as json_file:
+dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
+# dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
+file_json = '3_34.json'
+# file_json = 'via_region_data.json'
+
+with open(dir_name + file_json) as json_file:
     annotations = json.load(json_file)
     annotations = list(annotations.values())  # don't need the dict keys
 
@@ -27,22 +35,39 @@ with open('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3_34.json') as
         all_points_x = [r['shape_attributes']['all_points_x'] for r in a['regions'].values()]
         all_points_y = [r['shape_attributes']['all_points_y'] for r in a['regions'].values()]
         # print (all_points_x, all_points_y)
-        img = cv2.imread(file_name)
+        img = cv2.imread(dir_name + file_name)
+
+        imge = PIL.Image.open(dir_name + file_name)
+
+        exif = {
+            PIL.ExifTags.TAGS[k]: v
+            for k, v in imge._getexif().items()
+            if k in PIL.ExifTags.TAGS
+        }
+
+        Orientation = exif['Orientation']
+        ExifImageWidth = exif['ExifImageWidth']
+        ExifImageHeight = exif['ExifImageHeight']
 
         polygons = []
         for i in range(len(all_points_x)):
             polygon =[]
-            pts = []
+            # points = []
             for j in range(len(all_points_x[i])):
                 pt = []
-                pt.append(all_points_x[i][j])
-                pt.append(all_points_y[i][j])
+                if Orientation == 6:
+                    pt.append(int(all_points_y[i][j]))
+                    pt.append(int(all_points_x[i][j]))
+                else:
+                    pt.append(int(all_points_y[i][j]))
+                    pt.append(int(all_points_x[i][j]))
                 polygon.append(pt)
-                pts.append(pt)
+                # points.append(pt)
 
+            pts = np.array(polygon)
             rect = cv2.boundingRect(pts)
-            x, y, w, h = rect
-            croped = img[y:y + h, x:x + w].copy()
+            y, x, w, h = rect
+            croped = img[y:y+w, x:x+h].copy()
 
             pts = pts - pts.min(axis=0)
 
@@ -57,10 +82,14 @@ with open('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3_34.json') as
             cv2.bitwise_not(bg, bg, mask=mask)
             dst2 = bg + dst
 
-            cv2.imwrite("croped.png", croped)
-            cv2.imwrite("mask.png", mask)
-            cv2.imwrite("dst.png", dst)
-            cv2.imwrite("dst2.png", dst2)
+            dim = (64, 64)
+            croped = cv2.resize(croped, dim, interpolation=cv2.INTER_AREA)
+
+            cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_'
+                        + str(i) + '_croped.png', croped)
+            # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/' + 'mask.png', mask)
+            # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/' + 'dst.png', dst)
+            # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/' + 'dst2.png', dst2)
 
             polygons.append(polygon)
         print (polygons)
