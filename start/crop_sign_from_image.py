@@ -7,10 +7,10 @@ import PIL.ExifTags
 
 l = []
 
-dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
-# dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
-file_json = '3_34.json'
-# file_json = 'via_region_data.json'
+# dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
+dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
+# file_json = '3_34.json'
+file_json = 'via_region_data.json'
 
 with open(dir_name + file_json) as json_file:
     annotations = json.load(json_file)
@@ -39,13 +39,16 @@ with open(dir_name + file_json) as json_file:
 
         imge = PIL.Image.open(dir_name + file_name)
 
-        exif = {
-            PIL.ExifTags.TAGS[k]: v
-            for k, v in imge._getexif().items()
-            if k in PIL.ExifTags.TAGS
-        }
+        img_exif = imge._getexif()
 
-        Orientation = exif['Orientation']
+        if img_exif:
+            exif = {
+                PIL.ExifTags.TAGS[k]: v
+                for k, v in imge._getexif().items()
+                if k in PIL.ExifTags.TAGS
+            }
+
+            Orientation = exif['Orientation']
 
         polygons = []
         for i in range(len(all_points_x)):
