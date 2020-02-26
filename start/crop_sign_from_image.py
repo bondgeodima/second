@@ -46,8 +46,6 @@ with open(dir_name + file_json) as json_file:
         }
 
         Orientation = exif['Orientation']
-        ExifImageWidth = exif['ExifImageWidth']
-        ExifImageHeight = exif['ExifImageHeight']
 
         polygons = []
         for i in range(len(all_points_x)):
@@ -55,12 +53,8 @@ with open(dir_name + file_json) as json_file:
             # points = []
             for j in range(len(all_points_x[i])):
                 pt = []
-                if Orientation == 6:
-                    pt.append(int(all_points_y[i][j]))
-                    pt.append(int(all_points_x[i][j]))
-                else:
-                    pt.append(int(all_points_y[i][j]))
-                    pt.append(int(all_points_x[i][j]))
+                pt.append(int(all_points_y[i][j]))
+                pt.append(int(all_points_x[i][j]))
                 polygon.append(pt)
                 # points.append(pt)
 
