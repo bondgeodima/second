@@ -111,7 +111,7 @@ for filename in os.listdir(dirname):
     f_type = filename[-3:]
     f_file = filename[:-8]
 
-    if f_type == 'txt':
+    if f_type == 'txt' and f_file == 'VID_20200212_101221':
         f = io.open(dirname + filename, mode="r", encoding="utf-8")
         # ff = io.open(dirname + f_file + '_out_out.csv', mode="w+", encoding="utf-8")
         # f = io.open("D:/TEMP/_deeplearning/road_signs/__video/VID_20200114_102753_out.txt", mode="r",
@@ -125,7 +125,7 @@ for filename in os.listdir(dirname):
             file_image = (x[5]).strip()
             # file_image = dirname + '_out_' + f_file + '/' + file_image + '.jpg'
 
-            image = skimage.io.imread(dirname + '_out_' + f_file + '/' + file_image + '.jpg')
+            image = skimage.io.imread(dirname + '_out_' + f_file + '/' + f_file + '_' + file_image + '.jpg')
 
             # image = skimage.io.imread("D:/TEMP/_deeplearning/road_signs/__video/out2/" + file_image + '.jpg')
 
@@ -191,7 +191,7 @@ for filename in os.listdir(dirname):
                 # l = str(i) + ';' + (x[1]).strip() + ';' + (x[2]).strip() + ';' + (x[3]).strip() + \
                 #     ';' + (x[4]).strip() + ';' + (x[5]).strip() + ';1' + '\n'
                 l = str(i) + ';' + (x[1]).strip() + ';' + (x[2]).strip() + ';' + (x[3]).strip() + \
-                    ';' + "D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/out_image/" + f_file + '_' + file_image + '.jpg' + \
+                    ';' + "D:/TEMP/_deeplearning/road_signs/_video_17_02_2020/out_image/" + f_file + '_' + file_image + '.jpg' + \
                     ';' + f_file + '_' + file_image + '.jpg' + \
                     ';1' + '\n'
                 ff = io.open(dirname + 'all_out.csv', mode="a", encoding="utf-8")
