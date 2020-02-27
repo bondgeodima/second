@@ -7,10 +7,11 @@ import PIL.ExifTags
 
 l = []
 
-dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
+# dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
+dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\2.1\_train\in/'
 # dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
-file_json = '3_34.json'
-# file_json = 'via_region_data.json'
+# file_json = '3_34.json'
+file_json = 'via_region_data.json'
 
 with open(dir_name + file_json) as json_file:
     annotations = json.load(json_file)
@@ -32,8 +33,12 @@ with open(dir_name + file_json) as json_file:
         # polygons = [r['shape_attributes'] for r in a['regions'].values()]
         # objects = [s['region_attributes'] for s in a['regions'].values()]
         # class_ids = [int(n['class']) for n in objects]
-        all_points_x = [r['shape_attributes']['all_points_x'] for r in a['regions'].values()]
-        all_points_y = [r['shape_attributes']['all_points_y'] for r in a['regions'].values()]
+        if hasattr(a['regions'], 'values'):
+            all_points_x = [r['shape_attributes']['all_points_x'] for r in a['regions'].values()]
+            all_points_y = [r['shape_attributes']['all_points_y'] for r in a['regions'].values()]
+        else:
+            all_points_x = [r['shape_attributes']['all_points_x'] for r in a['regions']]
+            all_points_y = [r['shape_attributes']['all_points_y'] for r in a['regions']]
         # print (all_points_x, all_points_y)
         img = cv2.imread(dir_name + file_name)
         height, width, channels = img.shape
