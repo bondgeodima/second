@@ -8,7 +8,7 @@ import PIL.ExifTags
 l = []
 
 # dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
-dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\2.1\_train\in/'
+dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\all\train/'
 # dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
 # file_json = '3_34.json'
 file_json = 'via_region_data.json'
@@ -58,7 +58,7 @@ with open(dir_name + file_json) as json_file:
 
             Orientation = exif['Orientation']
 
-        polygons = []
+        # polygons = []
         for i in range(len(all_points_x)):
             polygon =[]
             # points = []
@@ -104,7 +104,7 @@ with open(dir_name + file_json) as json_file:
             # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/' + 'dst.png', dst)
             # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/' + 'dst2.png', dst2)
 
-            polygons.append(polygon)
+            # polygons.append(polygon)
         # print (polygons)
 
 
