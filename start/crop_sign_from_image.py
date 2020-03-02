@@ -8,10 +8,10 @@ import PIL.ExifTags
 l = []
 
 # dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
-# dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\all\train/'
-dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
+dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\all\train/'
+# dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
 # file_json = '3_34.json'
-file_json = 'via_region_data_all.json'
+file_json = 'via_region_data.json'
 
 with open(dir_name + file_json) as json_file:
     annotations = json.load(json_file)
@@ -100,7 +100,7 @@ with open(dir_name + file_json) as json_file:
             dst2 = bg + dst
 
             dim = (128, 128)
-            croped = cv2.resize(croped, dim, interpolation=cv2.INTER_AREA)
+            # croped = cv2.resize(croped, dim, interpolation=cv2.INTER_AREA)
             dst2 = cv2.resize(dst2, dim, interpolation=cv2.INTER_AREA)
 
             # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_' + str(i)
