@@ -8,10 +8,10 @@ import PIL.ExifTags
 l = []
 
 # dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
-dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\all\train/'
-# dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
+# dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\all\train/'
+dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
 # file_json = '3_34.json'
-file_json = 'via_region_data.json'
+file_json = 'via_region_data_all.json'
 
 with open(dir_name + file_json) as json_file:
     annotations = json.load(json_file)
@@ -58,7 +58,7 @@ with open(dir_name + file_json) as json_file:
 
             Orientation = exif['Orientation']
 
-        # polygons = []
+        polygons = []
         for i in range(len(all_points_x)):
             polygon =[]
             # points = []
@@ -82,7 +82,11 @@ with open(dir_name + file_json) as json_file:
             y, x, w, h = rect
             croped = img[y:y+w, x:x+h].copy()
 
+            # print (pts)
+            # print ("")
             pts = pts - pts.min(axis=0)
+            pts = np.flip(pts,1)
+            # print (pts)
 
             mask = np.zeros(croped.shape[:2], np.uint8)
             cv2.drawContours(mask, [pts], -1, (255, 255, 255), -1, cv2.LINE_AA)
@@ -97,14 +101,18 @@ with open(dir_name + file_json) as json_file:
 
             dim = (128, 128)
             croped = cv2.resize(croped, dim, interpolation=cv2.INTER_AREA)
+            dst2 = cv2.resize(dst2, dim, interpolation=cv2.INTER_AREA)
 
-            cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_'
-                        + str(i) + '_croped.png', croped)
-            # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/' + 'mask.png', mask)
-            # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/' + 'dst.png', dst)
-            # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/' + 'dst2.png', dst2)
+            # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_' + str(i)
+            #             + '_croped.png', croped)
+            # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_' + str(i)
+            #             + '_mask.png', mask)
+            # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_' + str(i)
+            #             + '_dst.png', dst)
+            cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_' + str(i)
+                         + '_dst2.png', dst2)
 
-            # polygons.append(polygon)
+            polygons.append(polygon)
         # print (polygons)
 
 
