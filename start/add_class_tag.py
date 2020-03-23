@@ -1,15 +1,16 @@
 import json
-import io
 
-with open('E:/signs/val/val.json') as json_file:
-    annotations = json.load(json_file)
-
-    for i in annotations:
-        # temp = a['regions']['region_attributes']
-        #temp.append(class_list)
-        for n in annotations[i]['regions']:
-            annotations[i]['regions'][n]['region_attributes']['class'] = '1'
-            print (annotations[i])
-
-    fff = io.open('E:/signs/train/' + 'via_region_data.json', mode="w", encoding="utf-8")
-    json.dump(annotations, fff)
+filename_in = 'E:/signs/train/train.json'
+with open(filename_in, "r") as read_file:
+    data = json.load(read_file)
+c = 0
+for i in data:
+    if data[i]['regions']:
+        for n in data[i]['regions']:
+            data[i]['regions'][n]['region_attributes']={'class': '1'}
+            print(i, data[i]['regions'][n]['region_attributes'])
+    c = +1
+out_file = open('E:/signs/train/out.json','w')
+out_file.write(json.dumps(data))
+out_file.close()
+print('Number of records: ', c)
