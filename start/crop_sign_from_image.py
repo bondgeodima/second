@@ -8,9 +8,10 @@ import PIL.ExifTags
 l = []
 
 # dir_name = 'D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/3.34/'
-dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\all\train/'
+# dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\all\train/'
 # dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
 # file_json = '3_34.json'
+dir_name = r'E:\signs\train/'
 file_json = 'via_region_data.json'
 
 with open(dir_name + file_json) as json_file:
@@ -36,10 +37,14 @@ with open(dir_name + file_json) as json_file:
         if hasattr(a['regions'], 'values'):
             all_points_x = [r['shape_attributes']['all_points_x'] for r in a['regions'].values()]
             all_points_y = [r['shape_attributes']['all_points_y'] for r in a['regions'].values()]
+            # regions = a['regions'].values()
         else:
             all_points_x = [r['shape_attributes']['all_points_x'] for r in a['regions']]
             all_points_y = [r['shape_attributes']['all_points_y'] for r in a['regions']]
+            # regions = a['regions']
         # print (all_points_x, all_points_y)
+
+        # print(len(regions))
         img = cv2.imread(dir_name + file_name)
         height, width, channels = img.shape
 
@@ -59,6 +64,8 @@ with open(dir_name + file_json) as json_file:
             Orientation = exif['Orientation']
 
         polygons = []
+        k = 0
+        print (len(all_points_x))
         for i in range(len(all_points_x)):
             polygon =[]
             # points = []
@@ -68,6 +75,10 @@ with open(dir_name + file_json) as json_file:
                     pt.append(int(all_points_y[i][j]))
                     pt.append(int(all_points_x[i][j]))
                 if Orientation == 6:
+                    # img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+                    pt.append(int(all_points_x[i][j]))
+                    pt.append(int(width - all_points_y[i][j]))
+                if Orientation == 8:
                     # img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
                     pt.append(int(all_points_x[i][j]))
                     pt.append(int(width - all_points_y[i][j]))
@@ -109,8 +120,9 @@ with open(dir_name + file_json) as json_file:
             #             + '_mask.png', mask)
             # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_' + str(i)
             #             + '_dst.png', dst)
-            cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_' + str(i)
-                         + '_dst2.png', dst2)
+            cv2.imwrite('E:/signs/out/t_' + file_name[:-4] + '_c_' + str(k)
+                         + '.png', dst2)
+            k = k + 1
 
             polygons.append(polygon)
         # print (polygons)
