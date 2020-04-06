@@ -11,7 +11,7 @@ l = []
 # dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\all\train/'
 # dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
 # file_json = '3_34.json'
-dir_name = r'E:\signs\val/'
+dir_name = r'E:\signs\train/'
 file_json = 'via_region_data.json'
 
 with open(dir_name + file_json) as json_file:
@@ -26,7 +26,6 @@ with open(dir_name + file_json) as json_file:
     # Add images
     for a in annotations:
         file_name = a['filename']
-        print (file_name)
 
         # Get the x, y coordinaets of points of the polygons that make up
         # the outline of each object instance. There are stores in the
@@ -62,6 +61,10 @@ with open(dir_name + file_json) as json_file:
             }
 
             Orientation = exif['Orientation']
+        else:
+            Orientation = 0
+
+        print(file_name, Orientation)
 
         polygons = []
         k = 0
