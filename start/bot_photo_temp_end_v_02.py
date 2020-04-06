@@ -34,7 +34,7 @@ from samples.coco import coco
 # Directory to save logs and trained model
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 
-COCO_MODEL_PATH = os.path.join(ROOT_DIR, "mask_rcnn_roads_signs_dataset_16.h5")
+COCO_MODEL_PATH = os.path.join(ROOT_DIR, "mask_rcnn_road_signs_0030_2020_03_25.h5")
 # Download COCO trained weights from Releases if needed
 if not os.path.exists(COCO_MODEL_PATH):
     utils.download_trained_weights(COCO_MODEL_PATH)
@@ -72,7 +72,7 @@ model = modellib.MaskRCNN(mode="inference", model_dir=MODEL_DIR, config=config)
 model.load_weights(COCO_MODEL_PATH, by_name=True)
 model.keras_model._make_predict_function()
 
-class_names = ['BG', '2_1', '5_35_1', '5_35_2', '2.3', '2.4']
+class_names = ['BG', 'signs']
 
 def random_colors(N):
     np.random.seed(1)
@@ -153,7 +153,7 @@ def handle_docs_photo(message):
         file_info = bot.get_file(message.photo[len(message.photo) - 1].file_id)
         downloaded_file = bot.download_file(file_info.file_path)
 
-        src = "D:/TEMP/_deeplearning/__from_kiev/_photo_from_bot/" + file_info.file_path
+        src = "E:/_deeplearning/__from_kiev/_photo_from_bot/" + file_info.file_path
         with open(src, 'wb') as new_file:
             new_file.write(downloaded_file)
         # bot.reply_to(message, "Photo detect")
@@ -163,7 +163,7 @@ def handle_docs_photo(message):
         r = results[0]
 
         color_img = display_instances(image, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
-        output_file_name = os.path.join("D:/TEMP/_deeplearning/__from_kiev/_photo_from_bot/photos_out/", file_info.file_path)
+        output_file_name = os.path.join("E:/_deeplearning/__from_kiev/_photo_from_bot/photos_out/", file_info.file_path)
         skimage.io.imsave(output_file_name, color_img)
 
         print (r['rois'])
@@ -173,16 +173,8 @@ def handle_docs_photo(message):
         class_ids = 0
         for class_id in r['class_ids']:
             if class_id == 1:
-                class_name = '2.1'
-            if class_id == 2:
-                class_name = '5.35.1'
-            if class_id == 3:
-                class_name = '5.35.2'
-            if class_id == 4:
-                class_name = '2.3'
-            if class_id == 5:
-                class_name = '2.4'
-            txt = txt + " sign: " + class_name + ", score: " + str(round(r['scores'][i],2))
+                class_name = 'signs'
+            txt = class_name
             class_ids = class_id
             i += 1
 
@@ -207,7 +199,7 @@ def handle_docs_photo(message):
         file_info = bot.get_file(message.video.file_id)
         downloaded_file = bot.download_file(file_info.file_path)
 
-        src = 'D:/TEMP/_deeplearning/__from_kiev/_photo_from_bot/' + file_info.file_path;
+        src = 'E:/_deeplearning/__from_kiev/_photo_from_bot/' + file_info.file_path;
         with open(src, 'wb') as new_file:
             new_file.write(downloaded_file)
 
@@ -223,7 +215,7 @@ def handle_docs_photo(message):
         file_info = bot.get_file(message.audio.file_id)
         downloaded_file = bot.download_file(file_info.file_path)
 
-        src = 'D:/TEMP/_deeplearning/__from_kiev/_photo_from_bot/' + file_info.file_path;
+        src = 'E:/_deeplearning/__from_kiev/_photo_from_bot/' + file_info.file_path;
         with open(src, 'wb') as new_file:
             new_file.write(downloaded_file)
 
@@ -239,7 +231,7 @@ def handle_docs_photo(message):
         file_info = bot.get_file(message.document.file_id)
         downloaded_file = bot.download_file(file_info.file_path)
 
-        src = 'D:/TEMP/_deeplearning/__from_kiev/_photo_from_bot/documents/' + message.document.file_name;
+        src = 'E:/_deeplearning/__from_kiev/_photo_from_bot/documents/' + message.document.file_name;
         print (src)
         with open(src, 'wb') as new_file:
             new_file.write(downloaded_file)
@@ -249,7 +241,7 @@ def handle_docs_photo(message):
         r = results[0]
 
         color_img = display_instances(image, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
-        output_file_name = os.path.join("D:/TEMP/_deeplearning/__from_kiev/_photo_from_bot/documents_out/", file_info.file_path)
+        output_file_name = os.path.join("E:/_deeplearning/__from_kiev/_photo_from_bot/documents_out/", file_info.file_path)
         skimage.io.imsave(output_file_name, color_img)
 
         i = 0
@@ -257,12 +249,8 @@ def handle_docs_photo(message):
         class_ids = 0
         for class_id in r['class_ids']:
             if class_id == 1:
-                class_name = '2.1'
-            if class_id == 2:
-                class_name = '5.35.1'
-            else:
-                class_name = '5.35.2'
-            txt = txt + " sign: " + class_name + ", score: " + str(round(r['scores'][i],2))
+                class_name = 'signs'
+            txt = class_name
             class_ids = class_id
             i += 1
 
