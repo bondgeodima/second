@@ -11,7 +11,7 @@ l = []
 # dir_name = r'D:\TEMP\_deeplearning\__from_kiev\____sign\all\train/'
 # dir_name = 'D:/TEMP/_deeplearning/road_signs/_video_25_01_2020/part_1/train/'
 # file_json = '3_34.json'
-dir_name = r'E:\signs\train/'
+dir_name = r'E:\signs\val/'
 file_json = 'via_region_data.json'
 
 with open(dir_name + file_json) as json_file:
@@ -65,7 +65,7 @@ with open(dir_name + file_json) as json_file:
 
         polygons = []
         k = 0
-        print (len(all_points_x))
+        # print (len(all_points_x))
         for i in range(len(all_points_x)):
             polygon =[]
             # points = []
@@ -120,7 +120,7 @@ with open(dir_name + file_json) as json_file:
             #             + '_mask.png', mask)
             # cv2.imwrite('D:/TEMP/_deeplearning/__from_kiev/_new_data_12_12_2019/out/_' + file_name[:-4] + '_' + str(i)
             #             + '_dst.png', dst)
-            cv2.imwrite('E:/signs/out/t_' + file_name[:-4] + '_c_' + str(k)
+            cv2.imwrite('E:/signs/out/v_' + file_name[:-4] + '_c_' + str(k)
                          + '.png', dst2)
             k = k + 1
 
