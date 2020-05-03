@@ -2,7 +2,7 @@ from ordered_set import OrderedSet
 import ast
 
 dir_name = r'D:\_english/'
-f = open(dir_name + "cusin_rachel.txt","r+")
+f = open(dir_name + "coldest_place.txt", "r+")
 f_dict = open(dir_name + "dict_all.csv","r+")
 dict = []
 lines = f.read().split('\n')
